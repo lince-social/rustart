@@ -1,1 +1,1 @@
-# template-rust
+maskfile.md
