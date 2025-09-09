@@ -1,3 +1,5 @@
 /target
-
+/book
+/logs
+/documentation/**/*.html
 mprocs.log

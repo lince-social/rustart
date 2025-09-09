@@ -1,8 +1,23 @@
-# Creatus Maskfile
+# Lince's Rust Template
+Hello, world
+
+# Commands
+## install
+```bash
+cargo install mprocs mdbook cargo-edit cargo-udeps --locked
+```
+
+## update
+```bash
+rustup self update
+rustup update stable
+cargo upgrade
+mask install
+```
 
 ## run
 ```bash
-cargo install mprocs --locked
+mask install
 mprocs \
     "bacon . --job seed" \
     "cargo run -- --docs" \
@@ -24,3 +39,9 @@ cross build --target x86_64-unknown-linux-gnu --release
 cargo fix --broken-code --allow-dirty && cargo clippy --fix --allow-dirty --quiet >/dev/null 2>&1
 ```
 > Removes all code that is redundant, applies cargo and clippy fixes
+
+## book
+```bash
+mask update
+mdbook serve --port 9999
+```
