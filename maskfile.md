@@ -4,7 +4,7 @@ Hello, world
 # Commands
 ## install
 ```bash
-cargo install mprocs mdbook cargo-edit cargo-udeps --locked
+cargo install bacon mdbook cargo-edit cargo-udeps --locked
 ```
 
 ## update
@@ -18,12 +18,7 @@ mask install
 ## run
 ```bash
 mask install
-mprocs \
-    "bacon . --job seed" \
-    "cargo run -- --docs" \
-    "docker ps" \
-    "docker compose -f database-compose.yml down" \
-    "docker compose -f database-compose.yml up -d"
+bacon --job run .
 ```
 > Installs mprocs if not installed and uses it for running all the processes one might need.
 
