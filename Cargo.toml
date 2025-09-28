@@ -1,10 +1,13 @@
 [package]
-name = "template"
+name = "rustart"
 version = "0.1.0"
 edition = "2024"
+description = "A collection of tools and code for starting a Rust project not from scratch."
+license = "GPL-3.0-or-later"
+keywords = ["todo"]
+include = ["/src"]
 
 [dependencies]
-async-trait = { version = "*" }
 axum = { version = "*", features = ["json", "macros"] }
 bcrypt = { version = "*" }
 chrono = { version = "*", features = ["serde"] }

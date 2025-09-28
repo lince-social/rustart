@@ -2103,6 +2103,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "rustart"
+version = "0.1.0"
+dependencies = [
+ "axum",
+ "bcrypt",
+ "chrono",
+ "cuid",
+ "dotenv",
+ "jsonwebtoken",
+ "reqwest",
+ "scalar-doc",
+ "scylla",
+ "serde",
+ "sqlx",
+ "tokio",
+ "tower-http",
+ "uuid",
+ "validator",
+]
+
+[[package]]
 name = "rustc-demangle"
 version = "0.1.26"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2784,28 +2805,6 @@ dependencies = [
  "once_cell",
  "rustix",
  "windows-sys 0.60.2",
-]
-
-[[package]]
-name = "template"
-version = "0.1.0"
-dependencies = [
- "async-trait",
- "axum",
- "bcrypt",
- "chrono",
- "cuid",
- "dotenv",
- "jsonwebtoken",
- "reqwest",
- "scalar-doc",
- "scylla",
- "serde",
- "sqlx",
- "tokio",
- "tower-http",
- "uuid",
- "validator",
 ]
 
 [[package]]
