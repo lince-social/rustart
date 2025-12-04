@@ -57,11 +57,20 @@ cargo upgrade
 
 ## docs
 ```bash
-cargo install typst-cli --locked
-zathura documentation/documentation.pdf &
-typst watch --font-path documentation/font/IBM_Plex_Sans/static documentation/documentation.typ
+cmd() { command -v "$1" >/dev/null; }
+
+if ! cmd tinymist || ! cmd typst; then
+  read -p "Docs will run in http://localhost:23625. Write the package manager that will install typst and tinymist [brew/pacman]: " c
+  case $c in
+    brew) brew install tinymist typst ;;
+    pacman) sudo pacman -Syu --needed --noconfirm typst tinymist ;;
+    *) exit 1 ;;
+  esac
+fi
+
+tinymist preview --font-path documentation/font/IBM_Plex_Sans/static documentation/documentation.typ
 ```
-> Starts typst documentation with mprocs
+> Starts typst documentation with tinymist on http://localhost:23625
 
 ## up
 ```bash
