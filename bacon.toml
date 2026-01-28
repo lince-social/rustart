@@ -1,5 +1,0 @@
-[jobs.seed]
-command = ["cargo", "run", "--", "--seed", "--color", "always"]
-need_stdout = true
-allow_warnings = true
-watch = ["src/**"]

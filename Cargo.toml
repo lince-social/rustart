@@ -16,7 +16,6 @@ dotenv = { version = "*" }
 jsonwebtoken = { version = "*" }
 reqwest = { version = "*" }
 scalar-doc = { version = "*" }
-scylla = { version = "*" }
 serde = { version = "*", features = ["derive"] }
 sqlx = { version = "*", features = ["runtime-tokio", "sqlite"] }
 tokio = { version = "*", features = ["full"] }
