@@ -1,0 +1,43 @@
+[env]
+RUST_CHANNEL = "nightly"
+
+[tasks.update]
+description = "update project"
+tools = { rust = "{{env.RUST_CHANNEL}}" }
+run = "rustup update {{env.RUST_CHANNEL}} && cargo upgrade"
+
+[tasks.off]
+tools = { rust = "{{env.RUST_CHANNEL}}", "cargo:mprocs" = "latest", "cargo:bacon" = "latest" }
+depends = ["update"]
+run = "cargo upgrade && cargo fix --allow-dirty --broken-code && cargo clippy --fix --allow-dirty --quiet"
+
+[tasks.dev]
+tools = { rust = "{{env.RUST_CHANNEL}}", "cargo:bacon" = "latest" }
+run = "bacon --job run ."
+
+[tasks.run]
+tools = { rust = "{{env.RUST_CHANNEL}}" }
+run = "cargo run"
+
+[tasks.release]
+tools = { rust = "{{env.RUST_CHANNEL}}", "cargo:git-cliff" = "latest", "cargo:cargo-edit" = "latest", "gh" = "latest" }
+run = """
+set -e
+[[ $(git rev-parse --abbrev-ref HEAD) != "main" ]] && echo "❌ main only" && exit 1
+gh auth status >/dev/null || { echo "🔑 login required"; exit 1; }
+
+SUGGESTED_VER=$(git cliff --bumped-version 2>/dev/null || echo "0.1.0")
+read -rp "Version (auto: $SUGGESTED_VER): " USER_INPUT
+VERSION=${USER_INPUT:-$SUGGESTED_VER}
+[[ $VERSION != v* ]] && VERSION="v$VERSION"
+
+git cliff --unreleased --bump --tag "$VERSION" -o CHANGELOG.md
+cargo set-version "${VERSION#v}"
+git add . && git commit -m "chore(release): $VERSION" && git tag -a "$VERSION" -m "$VERSION"
+git push origin main "$VERSION"
+gh run list --workflow=build-release --limit 1 --json url -q '.[0].url'
+"""
+
+[tasks.cross]
+tools = { rust = "{{env.RUST_CHANNEL}}", "cargo:cross" = "latest" }
+run = "docker pull ghcr.io/cross-rs/x86_64-unknown-linux-gnu:main --platform linux/x86_64 && cross build --target x86_64-unknown-linux-gnu --release"
